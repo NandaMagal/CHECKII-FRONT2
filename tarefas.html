@@ -31,7 +31,7 @@
                     <a class="user-image "></a>
                 </li>
                 <li class="nav-item ">
-                    <button class="btn btn-outline-success my-2 my-sm-0 " type="submit ">Finalizar sessão</button>
+                    <button id="finalizarTask" class=" btn btn-outline-success my-2 my-sm-0 " type="submit ">Finalizar sessão</button>
                 </li>
             </ul>
         </nav>
@@ -45,75 +45,15 @@
         </button>
     </form>
 
-    <ul class="tarefas-pendentes">
-        <div id="skeleton ">
-            <li class="tarefa">
-                <div class="idTarefa"></div>
-                <div class="descricao ">
-                    <p class="nomeTarefa ">Nova tarefa</p>
-                    <p class="timestamp ">Criada em: 18/04/22</p>
-                </div>
-            </li>
-            <li class="tarefa ">
-                <div class="idTarefa "></div>
-                <div class="descricao ">
-                    <p class="nomeTarefa ">Nova tarefa</p>
-                    <p class="timestamp ">Criada em: 19/04/22</p>
-                </div>
-            </li>
-            <li class="tarefa ">
-                <div class="idTarefa "></div>
-                <div class="descricao ">
-                    <p class="nomeTarefa ">Nova tarefa</p>
-                    <p class="timestamp ">Criada em: 20/04/22</p>
-                </div>
-            </li>
-        </div>
+    <ul class="tarefas-pendentes ">
+
     </ul>
 
     <h2 class="titulo-terminadas ">Tarefas Concluídas</h2>
-    <ul class="tarefas-terminadas ">
-        <li class="tarefa ">
-            <div class="not-done "></div>
-            <div class="descricao ">
-                <p class="nome ">Estudar API</p>
-                <p class="timestamp ">Criada: 14/04/2022</p>
-            </div>
-        </li>
-        <li class="tarefa ">
-            <div class="not-done "></div>
-            <div class="descricao ">
-                <p class="nome ">Passear</p>
-                <p class="timestamp ">Criada: 15/04/2022</p>
-            </div>
-        </li>
-        <li class="tarefa ">
-            <div class="not-done "></div>
-            <div class="descricao ">
-                <p class="nome ">Tocar Violão</p>
-                <p class="timestamp ">Criada: 16/04/2022</p>
-            </div>
-        </li>
-        <li class="tarefa ">
-            <div class="not-done "></div>
-            <div class="descricao ">
-                <p class="nome ">Apresentação Front2</p>
-                <p class="timestamp ">Criada: 22/04/2022</p>
-            </div>
-        </li>
-    </ul>
 
-    <!--Não entendi o propósito dessa categoria
-    <form class="novata ">
-        <li class=" tarefa ">
-            <div class="done "></div>
-            <div class="descricao ">
-                <p class="nome ">${tarefa.descricao}</p>
-                <button><i id="${tarefa.id} " class="fas fa-undo-alt change "></i></button>
-                <button><i id="${tarefa.id} " class="far fa-trash-alt "></i></button>
-            </div>
-        </li>
-    </form> -->
+    <ul class="tarefas-terminadas ">
+
+    </ul>
 
     <footer class="navbar-container fixed-bottom ">
         <nav class="nav nav-pills flex-column flex-sm-row ">
