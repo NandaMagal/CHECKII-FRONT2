@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/favicon.jpg" type="image/x-icon" />
+    <!-- ----------------------------- estilos CSS ----------------------------- -->
+    <link rel="stylesheet" href="./styles/tarefas.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- ------------------- Biblioteca de icones - Fontawesome -------------------- -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <!-- ----------------------------- bootstrap ----------------------------- -->
+    <link rel="stylesheet">
+    <title>To-Do App</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-light justify-content-between">
+            <a class="navbar-brand" href="#">Tarefas</a>
+            <ul class="form-inline" id="user-info">
+                <li class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <span class="navbar-text">
+                        Nome usuário
+                    </span>
+                </li>
+                <li class="nav-item">
+                    <a class="user-image"></a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Finalizar sessão</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <form class="nova-tarefa">
+        <div class="not-done "></div>
+        <input id="novaTarefa" type="text" placeholder="Nova tarefa">
+        <button id="Task" type="submit">
+            <img src="./assets/plus.png" alt="Adicionar uma nova tarefa">
+        </button>
+    </form>
+
+    <ul class="tarefas-pendentes">
+        <div id="skeleton">
+            <li class="tarefa">
+                <div class="idTarefa"></div>
+                <div class="descricao">
+                    <p class="nomeTarefa">Nova tarefa</p>
+                    <p class="timestamp">Criada em: 18/04/22</p>
+                </div>
+            </li>
+            <li class="tarefa">
+                <div class="idTarefa"></div>
+                <div class="descricao">
+                    <p class="nomeTarefa">Nova tarefa</p>
+                    <p class="timestamp">Criada em: 19/04/22</p>
+                </div>
+            </li>
+            <li class="tarefa">
+                <div class="idTarefa"></div>
+                <div class="descricao">
+                    <p class="nomeTarefa">Nova tarefa</p>
+                    <p class="timestamp">Criada em: 20/04/22</p>
+                </div>
+            </li>
+        </div>
+    </ul>
+
+    <h2 class="titulo-terminadas">Tarefas Concluídas</h2>
+    <ul class="tarefas-terminadas">
+        <li class="tarefa">
+            <div class="not-done"></div>
+            <div class="descricao">
+                <p class="nome">Estudar API</p>
+                <p class="timestamp">Criada: 14/04/2022</p>
+            </div>
+        </li>
+        <li class="tarefa">
+            <div class="not-done"></div>
+            <div class="descricao">
+                <p class="nome">Passear</p>
+                <p class="timestamp">Criada: 15/04/2022</p>
+            </div>
+        </li>
+        <li class="tarefa">
+            <div class="not-done"></div>
+            <div class="descricao">
+                <p class="nome">Tocar Violão</p>
+                <p class="timestamp">Criada: 16/04/2022</p>
+            </div>
+        </li>
+        <li class="tarefa">
+            <div class="not-done"></div>
+            <div class="descricao">
+                <p class="nome">Apresentação Front2</p>
+                <p class="timestamp">Criada: 22/04/2022</p>
+            </div>
+        </li>
+    </ul>
+
+    <!--Não entendi o propósito dessa categoria
+    <form class="novata">
+        <li class=" tarefa">
+            <div class="done"></div>
+            <div class="descricao">
+                <p class="nome">${tarefa.descricao}</p>
+                <button><i id="${tarefa.id} " class="fas fa-undo-alt change "></i></button>
+                <button><i id="${tarefa.id} " class="far fa-trash-alt "></i></button>
+            </div>
+        </li>
+    </form> -->
+
+    <footer class="navbar-container fixed-bottom">
+        <nav class="nav nav-pills flex-column flex-sm-row">
+            <a class="flex-sm-fill text-sm-center nav-link" href="https://github.com/NandaMagal" target="_blank">Fernanda</a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="https://github.com/helomeister" target="blank">Heloísa</a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="https://github.com/mpederiva" target="blank">Marta</a>
+        </nav>
+    </footer>
+
+    <!-- CDN example (unpkg) -->
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Novas tarefas -->
+    <script src="./scripts/API/post.js"></script>
+    <script src="./scripts/API/get.js"></script>
+    <script src="./scripts/API/put.js"></script>
+    <script src="./scripts/API/delete.js"></script>
+    <script src="./scripts/tarefas/tarefas.js"></script>
+</body>
+
+</html>
