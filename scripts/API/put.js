@@ -41,38 +41,3 @@ if (objetoNewTask.completed) {
         console.log(errou);
     })
 }
-
-//funcoes api modificar uma tarefa put// 
-function tarefaModifiqSucess(jwtRecebido) {
-    console.log("Jwt autorization que recebemos ao efetuar o login ");
-    console.log(jwtRecebido);
-
-    //atuaizar a localstrage não perde a Informação//
-    localStorage.setItem("jwt", jwtRecebido);
-
-    //Mandar o usuario para a pagina tarefas.html//
-    window.location.href = "tarefas.html";
-}
-
-//duvida como declarar esta certo?//
-function tarefaModifiqErro(resposta) {
-    let identifica = document.getElementById("id");
-    //como declarar//
-
-    //Identificador invalido//
-    if (resposta.status == 400) {
-        window.alert("Identificador da tarefa invalido");
-        identifica.value = "";
-
-        if (resposta.status == 401)
-            window.alert("Usuário não Existe, favor entrar com usuário já cadastrado ou efetuar a inclusão do novo usuário");
-        emailLogin.value = "";
-        passwordLogin.value = "";
-    } else if (resposta.status == 404) {
-        window.alert("Tarefa Inexistente, favor informar outra tarefa");
-    }
-
-    if (resposta.status == 500) {
-        window.alert("Erro no Servidor,favor reiniciar a pagina");
-    }
-}

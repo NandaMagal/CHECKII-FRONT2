@@ -133,8 +133,8 @@ function validaTelaDeCadastro() {
 }
 
 const cadastroObjeto = {
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: ""
 }
@@ -152,8 +152,8 @@ cadastrar.addEventListener('click', evento => {
         nomeCadastroNormalizado = converteValorRecebidoEmMinusculo(nomeCadastroNormalizado);
         emailCadastroNormalizado = converteValorRecebidoEmMinusculo(emailCadastroNormalizado);
         sobrenomeCadastroNormalizado = converteValorRecebidoEmMinusculo(sobrenomeCadastroNormalizado);
-        cadastroObjeto.firstname = nomeCadastroNormalizado;
-        cadastroObjeto.lastname = sobrenomeCadastroNormalizado;
+        cadastroObjeto.firstName = nomeCadastroNormalizado;
+        cadastroObjeto.lastName = sobrenomeCadastroNormalizado;
         cadastroObjeto.email = emailCadastroNormalizado;
         cadastroObjeto.password = senha.value;
         let Users = JSON.stringify(cadastroObjeto);
