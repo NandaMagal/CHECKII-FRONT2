@@ -223,7 +223,7 @@ function tarefaListaErro(resposta) {
 function renderizarPendentes(tarefa) {
     let taskPende = document.querySelector('.tarefas-pendentes');
     let pendentes = document.createElement('li');
-    pendentes.innerHTML = ` <div class="not-done" id="${tarefa.id}"></div>
+    pendentes.innerHTML = ` <div class="not-done" id="${tarefa.id}" onclick="alteraStatustrue(${tarefa.id}, tokenUserjwt)"></div>
                             <div class="descricao">
                                 <p class="nome">${tarefa.description}</p>
                                 <p class="timestamp"><i class="far fa-calendar-alt"></i> ${tarefa.createdAt}</p>
@@ -243,8 +243,8 @@ function renderizarConcluidas(tarefa) {
                             <div class="descricao">
                             <p class="nome">${tarefa.description}</p>
                             <div>
-                                <button><i id="${tarefa.id}" class="fas fa-undo-alt change"></i></button>
-                                <button><i id="${tarefa.id}" class="far fa-trash-alt" onclick="deleteTask(${tarefa.id},token)"></i></button>
+                                <button><i id="${tarefa.id}" class="fas fa-undo-alt change" onclick="alteraStatusfalse(${tarefa.id}, tokenUserjwt)"></i></button>
+                                <button><i id="${tarefa.id}" class="far fa-trash-alt" onclick="deleteTask(${tarefa.id}, tokenUserjwt)"></i></button>
                             </div>
                             </div>
                         `

@@ -1,6 +1,7 @@
 // buscar token jwt de usuario que tem cadastro //
+let tokenUserjwt = localStorage.getItem("jwt");
+
 onload = function() {
-    let tokenUserjwt = localStorage.getItem("jwt");
 
     //e o tokes wt for vazio ou diferente do token do usuario//
     if (!tokenUserjwt || tokenUserjwt == "") {
@@ -63,6 +64,7 @@ onload = function() {
                 "Authorization": token
             }
         }
+
         fetch(urlListaTasks, configuracao)
             .then(
                 result => {
@@ -118,7 +120,7 @@ function criaTask(tarefa) {
         method: "POST",
         headers: {
             "Content-type": "application/json",
-            "Authorization": token
+            "Authorization": tokenUserjwt
         },
         body: novasTarefas
     }
@@ -126,12 +128,13 @@ function criaTask(tarefa) {
         .then(
             result => {
                 if (result.status == 201 || result.status == 200) {
-                    window.alert("Tarefa Criada com Sucesso");
                     return result.json();
                 } else {
                     throw result;
                 }
             }).then(function(resposta) {
+            alert("Tarefa Criada com Sucesso");
+            location.reload();
             console.log(resposta); // primeira chamada da api-retorno de todo o objeto resultado json
         }).catch(errou => {
             tarefaErro(errou);
@@ -139,11 +142,9 @@ function criaTask(tarefa) {
         });
 }
 
-let deletar = document.getElementById("")
-
 function deleteTask(id, token) {
 
-    let urlDeleteTask = `https: //ctd-todo-api.herokuapp.com/v1/tasks/${id}`;
+    let urlDeleteTask = `https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`;
     let configuracao = {
         method: "DELETE",
         headers: {
@@ -160,10 +161,73 @@ function deleteTask(id, token) {
             }
 
         }).then(function(resposta) {
+            alert("Modificando Tarefas com Sucesso");
             // tarefaDeletarSucess(resposta.jwt);
             console.log(resposta.jwt);
+            location.reload();
         }).catch(errou => {
             // tarefaDeleteErro(errou);
             console.log(errou);
         });
+}
+
+
+//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
+//declaração de variaveis metodo PUT api chamada atraves do id da tarefa usar template string ///xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
+
+//declaração de variaveis para MODIFICAR  uma tarefa method PUT//
+function alteraStatusfalse(id, token) {
+    let urlModifiqueTask = `https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`;
+    let configuracao = {
+        method: "PUT",
+        headers: {
+            "Authorization": token
+        },
+        body: {
+            "completed": false
+        }
+    }
+    fetch(urlModifiqueTask, configuracao).then(
+        result => {
+            if (result.status == 201 || result.status == 200) {
+                alert("Modificando Tarefas com Sucesso");
+                return result.json();
+            } else {
+                throw result;
+            }
+        }).then(function(resposta) {
+        console.log(resposta.jwt);
+        location.reload();
+    }).catch(errou => {
+        tarefaModifiqErro(errou);
+        console.log(errou);
+    })
+}
+
+function alteraStatustrue(id, token) {
+    let urlModifiqueTask = `https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`;
+    let configuracao = {
+        method: "PUT",
+        headers: {
+            "Authorization": token
+        },
+        body: {
+            "completed": true
+        }
+    }
+    fetch(urlModifiqueTask, configuracao).then(
+        result => {
+            if (result.status == 201 || result.status == 200) {
+                alert("Modificando Tarefas com Sucesso");
+                return result.json();
+            } else {
+                throw result;
+            }
+        }).then(function(resposta) {
+        console.log(resposta.jwt);
+        location.reload();
+    }).catch(errou => {
+        tarefaModifiqErro(errou);
+        console.log(errou);
+    })
 }
