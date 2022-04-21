@@ -94,7 +94,7 @@ passwordLogin.addEventListener('blur', function() {
         passwordEValido = true;
     } else {
         //senha está vazio
-        passwordValidacao.innerText = "Senha obrigatória"
+        passwordValidacao.innerText = "Senha obrigatória.Usuário deve digitar no mínimo um número, uma letra Maiuscula, uma letra Minúscula e um Caracter especial"
         passwordLogin.style.backgroundColor = "green";
         passwordValidacao.style.color = "#E05E"
         passwordValidacao.style.fontSize = "12"
@@ -108,7 +108,7 @@ passwordLogin.addEventListener('blur', function() {
         passwordEValido = true;
     } else {
         /*Email esta com preenchimento incorreto conforme padrão Regex*/
-        passwordValidacao.innerText = "Senha obrigatória"
+        passwordValidacao.innerText = "Senha obrigatória.Usuário deve digitar no mínimo um número, uma letra Maiuscula, uma letra Minúscula e um Caracter especial"
         passwordLogin.style.backgroundColor = "green";
         passwordValidacao.style.color = "#E05E"
         passwordValidacao.style.fontSize = "12"
