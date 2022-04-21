@@ -5,13 +5,6 @@ let email = document.getElementById('inputEmail');
 let senha = document.getElementById('inputPassword');
 let repetirSenha = document.getElementById('inputRepeatPassword');
 let cadastrar = document.getElementById('botaoCadastro');
-
-
-let nomeCadastroNormalizado;
-let sobrenomeCadastroNormalizado;
-let emailCadastroNormalizado;
-let passwordCadastroNormalizado;
-
 let nomeValido = false;
 let sobrenomeValido = false;
 let emailCadastroValido = false;
@@ -64,12 +57,6 @@ repetirSenha.addEventListener('blur', function() {
 });
 
 
-const cadastroObjeto = {
-    nome: "",
-    sobrenome: "",
-    email: "",
-    password: ""
-}
 
 nome.addEventListener('blur', function() { //Capturando o elemento <Small> do html
     let nomeValidar = document.getElementById('nomeValidacao');
@@ -144,3 +131,61 @@ function validaTelaDeCadastro() {
         return false
     }
 }
+
+const cadastroObjeto = {
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: ""
+}
+
+let nomeCadastroNormalizado;
+let sobrenomeCadastroNormalizado;
+let emailCadastroNormalizado;
+
+cadastrar.addEventListener('click', evento => {
+    evento.preventDefault();
+    if (validaTelaDeCadastro()) {
+        nomeCadastroNormalizado = retiraEspacosDeUmValorInformado(inputName.value);
+        sobrenomeCadastroNormalizado = retiraEspacosDeUmValorInformado(inputLastName.value);
+        emailCadastroNormalizado = retiraEspacosDeUmValorInformado(inputEmail.value);
+        nomeCadastroNormalizado = converteValorRecebidoEmMinusculo(nomeCadastroNormalizado);
+        emailCadastroNormalizado = converteValorRecebidoEmMinusculo(emailCadastroNormalizado);
+        sobrenomeCadastroNormalizado = converteValorRecebidoEmMinusculo(sobrenomeCadastroNormalizado);
+        cadastroObjeto.firstname = nomeCadastroNormalizado;
+        cadastroObjeto.lastname = sobrenomeCadastroNormalizado;
+        cadastroObjeto.email = emailCadastroNormalizado;
+        cadastroObjeto.password = senha.value;
+        let Users = JSON.stringify(cadastroObjeto);
+
+        /*INCLUIR API COM UM users - cadastrar Novo  recurso*/
+        //incluindo validações na APi 
+        //Code: 200 - Operação Sucesso;
+        //400 - Usuário já existe;
+        //500 - Error del servidor //
+
+        let urlUsers = ("https://ctd-todo-api.herokuapp.com/v1/users");
+        let configDaRequ = {
+            method: "POST", // enviando
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: Users
+        }
+        fetch(urlUsers, configDaRequ)
+            .then(result => {
+                if (result.status == 201 || result.status == 200) {
+                    return result.json();
+                } else {
+                    throw result;
+                }
+            }).then(function(resposta) {
+                userSucess(resposta.jwt);
+                console.log(resposta.jwt);
+            })
+            .catch(errou => {
+                userErro(errou);
+                console.log(errou)
+            })
+    };
+});
