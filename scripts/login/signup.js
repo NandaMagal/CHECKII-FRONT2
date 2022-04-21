@@ -1,12 +1,11 @@
 //captura dos elementos//
-
 let nome = document.getElementById('inputName');
 let sobrenome = document.getElementById('inputLastName')
 let email = document.getElementById('inputEmail');
 let senha = document.getElementById('inputPassword');
 let repetirSenha = document.getElementById('inputRepeatPassword');
 let cadastrar = document.getElementById('botaoCadastro');
-let botaoValida = document.getElementById('validarSenha');
+
 
 let nomeCadastroNormalizado;
 let sobrenomeCadastroNormalizado;
@@ -21,75 +20,30 @@ let repetirPasswordValido = false;
 
 /*Desabilita o botão  de validação da senha e do cadastro ao iniciar a página*/
 
-botaoValida.setAttribute('disabled', true);
-botaoValida.innerText = "Bloqueado"
+
 cadastrar.setAttribute('disabled', true);
 cadastrar.innerText = "Bloqueado"
 
 //validacao da senha  utilizando metodo match//
 //segunda opcao de validacao de senha
-function validaSenha2() {
-    //criando referencia aos elementos de captura da função//
-    //informa resposta pro usuário referencia a sua senha //
-    var respostaUsuario = document.getElementById('resposta');
-    var inputSenha = document.getElementById('inputPassword');
-    // obtem o conteudo da senha obtido//
-    let senha = inputPassword.value;
-    let erros = []; // vetor de erros//
-
-    //Verifica se o tamanho da senha é invalido //
-    if (senha.length < 8 || senha.length > 10) {
-        erros.push("Possuir entre 8 e 15 caracteres");
-    }
-    //verifica se não possui numeros //
-    if (senha.match(/[0-9]/g) == null) {
-        erros.push("deve possui números (no mínimo, 1)");
-    }
-
-    //verfica se não possui letras minusculas//]
-    if (!senha.match(/[a-z]/g)) {
-        erros.push("possuir letras minúsculas(no mínimo,1)");
-    }
-
-    //verifica se nao possui letras maiusculas ou se possui apenas 1//
-
-    if (!senha.match(/[A-Z]/g) || (senha.match(/[A-Z]/g)).length == 1) {
-        erros.push("possuir letras maiusculas(no mínimo,2)");
-    }
-
-    //verifica se possui simbolos ou ""//
-    if (!senha.match(/[A-Z]/g) || (senha.match(/[A-Z]/g)).length == 1) {
-        erros.push("possuir simbolos(no mínimo,2)");
-    }
-    //se vetor esta vazio (significa que não foram encontrados erros)
-    if (erros.length == 0) {
-        respostaUsuario.textContent = "ok! Senha Valida!"
-    } else {
-        respostaUsuario.textContent = "Erro...A senha deve " + erros.join(",")
-    }
-}
 
 senha.addEventListener('blur', function() {
-    //Capturando o elemento <Small> do html
-    let passwordValidar = document.getElementById('passwordValidacao');
+    let passwordValidacao = document.getElementById('passwordValidacao');
+    //Incluimos o elemento  <Small> do html e capturamos o mesmo
 
-    if (senha.value != " ") {
-        //Password tem alguma informação
-        passwordValidar.innerText = " ";
-        passwordValidar.style.border = ``;
-        passwordValidar.style.backgroundColor = "green";
+    if ((/(?=.*[A-Z])(?=.*[a-z])(?=.*[\d])(?=.*[!@#$%^&*()-+]).{8,}$/.test(senha.value))) {
+        passwordValidacao.innerText = " ";
+        senha.style.backgroundColor = "green";
         passwordCadastroValido = true;
     } else {
-        //Senha está vazio
-        passwordValidar.innerText = "Senha obrigatória";
-        passwordValidar.style.color = "#E01E1E";
-        passwordValidar.style.fontSize = "10"
-        passwordValidar.style.fontWeight = "italic"
-        passwordValidar.style.border = `2px solid #E01E1E`
-        passwordValidar.style.backgroundColor = "red";
+        /*Email esta com preenchimento incorreto conforme padrão Regex*/
+        passwordValidacao.innerText = "Senha obrigatória"
+        senha.style.backgroundColor = "green";
+        passwordValidacao.style.color = "#E05E"
+        passwordValidacao.style.fontSize = "12"
+        passwordValidacao.style.fontWeight = "italic"
         passwordCadastroValido = false;
     }
-    validaSenha2();
     validaTelaDeCadastro();
 });
 
@@ -99,35 +53,13 @@ repetirSenha.addEventListener('blur', function() {
 
     //verificando se as duas senhas digitadas são iguais
     if (senha.value == repetirSenha.value) {
-        window.alert("Senhas digitadas identicas , prosseguir no cadastramento");
-        passwordCadastroValido = true;
+        repetirPasswordValidar.innerText = "Senhas digitadas identicas , prosseguir no cadastramento";
         repetirPasswordValido = true;
         //caso as senhas sejam diferentes apagamos os campos preenchidos
     } else {
-        window.alert("Senhas digitadas não são identicas , refazer a digitação por gentileza.");
-        passwordValidar.innerText = " ";
-        repetirPasswordValidar.innerText = "";
-        passwordCadastroValido = false;
+        repetirPasswordValidar.innerText = "Senhas digitadas não são identicas, refazer a digitação por gentileza";
         repetirPasswordValido = false;
     }
-
-    if (repetirSenha.value != " ") {
-        //repetir a Password tem alguma informação
-        console.log("esta preenchido");
-        repetirPasswordValidar.innerText = "";
-        repetirPasswordValidar.style.border = ``;
-        repetirPasswordValidar.style.backgroundColor = "green";
-        repetirPasswordValido = true;
-    } else {
-        //Senha está vazio
-        repetirPasswordValidar.innerText = "Obrigatório repetir a mesma Senha";
-        repetirPasswordValidar.style.color = "#E01E1E";
-        repetirPasswordValidar.style.fontSize = "10"
-        repetirPasswordValidar.style.fontWeight = "italic"
-        repetirPasswordValidar.style.border = `2px solid #E01E1E`
-        repetirPasswordValido = false;
-    }
-    validaSenha2();
     validaTelaDeCadastro();
 });
 
@@ -181,37 +113,24 @@ sobrenome.addEventListener('blur', function() {
 
 email.addEventListener('blur', function() {
     let emailValidar = document.getElementById('emailValidacao');
-    if (email.value != "") {
-        //email tem informação
-        emailValidar.innerText = ""
-        emailValidar.style.border = ``
+    /* Incluir metodo regex verificar caracteres do email se são validos. Email tem caracteres especificos e preenchidos corretamente*/
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value)) {
+        emailValidar.innerText = " ";
+        emailValidar.style.backgroundColor = "green";
         emailCadastroValido = true;
     } else {
-        //email está vazio
-        emailValidar.innerText = "Campo obrigatório";
-        emailValidar.style.color = "#E01E1E";
-        emailValidar.style.fontSize = "8";
-        emailValidar.style.fontWeight = "bold";
-        emailValidar.style.border = `1px solid #E01E1E`;
+        /*Email esta com preenchimento incorreto conforme padrão Regex*/
+        emailValidar.innerText = "O Email não é Válido";
+        emailValidar.style.color = "#E05E";
+        emailValidar.style.fontSize = "10";
+        emailValidar.style.fontWeight = "italic";
+        email.style.border = `2 px solid #D01F8E`;
         emailCadastroValido = false;
-
-        /* Incluir metodo regex verificar caracteres do email se são validos. Email tem caracteres especificos e preenchidos corretamente*/
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailLogin.value)) {
-            emailValidar.innerText = " ";
-            emailValidar.style.backgroundColor = "green";
-            emailCadastroValido = true;
-        } else {
-            /*Email esta com preenchimento incorreto conforme padrão Regex*/
-            emailValidar.innerText = "O Email não é Válido";
-            emailValidar.style.color = "#E05E";
-            emailValidar.style.fontSize = "10";
-            emailValidar.style.fontWeight = "italic";
-            emailLogin.style.border = `2 px solid #D01F8E`;
-            emailCadastroValido = false;
-        }
     }
+
     validaTelaDeCadastro();
 });
+
 
 
 function validaTelaDeCadastro() {
