@@ -12,8 +12,6 @@ onload = function() {
         buscaUsuarioNaApi(tokenUserjwt);
         buscaAsTarefasDoUsuario(tokenUserjwt);
     }
-
-
     /*INCLUIR API DADOS DO USUARIO GET ME*/
     //incluindo validações na APi 
     //Code: 200 - Operação Sucesso;
@@ -188,7 +186,7 @@ function alteraStatusfalse(id, token) {
             "Authorization": token,
             "Content-type": "application/json",
         },
-        body: statusFalse
+        body: statusNao
     }
     fetch(urlModifiqueTask, configuracao).then(
         result => {
@@ -210,7 +208,7 @@ function alteraStatusfalse(id, token) {
 function alteraStatustrue(id, token) {
     let urlModifiqueTask = `https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`;
     let statusTrue = {
-        "completed": false
+        "completed": true
     }
     let statusVerdade = JSON.stringify(statusTrue)
     let configuracao = {
