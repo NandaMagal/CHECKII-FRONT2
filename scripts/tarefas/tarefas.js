@@ -178,14 +178,17 @@ function deleteTask(id, token) {
 //declaração de variaveis para MODIFICAR  uma tarefa method PUT//
 function alteraStatusfalse(id, token) {
     let urlModifiqueTask = `https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`;
+    let statusFalse = {
+        "completed": false
+    }
+    let statusNao = JSON.stringify(statusFalse)
     let configuracao = {
         method: "PUT",
         headers: {
-            "Authorization": token
+            "Authorization": token,
+            "Content-type": "application/json",
         },
-        body: {
-            "completed": false
-        }
+        body: statusFalse
     }
     fetch(urlModifiqueTask, configuracao).then(
         result => {
@@ -206,14 +209,17 @@ function alteraStatusfalse(id, token) {
 
 function alteraStatustrue(id, token) {
     let urlModifiqueTask = `https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`;
+    let statusTrue = {
+        "completed": false
+    }
+    let statusVerdade = JSON.stringify(statusTrue)
     let configuracao = {
         method: "PUT",
         headers: {
-            "Authorization": token
+            "Authorization": token,
+            "Content-type": "application/json",
         },
-        body: {
-            "completed": true
-        }
+        body: statusVerdade
     }
     fetch(urlModifiqueTask, configuracao).then(
         result => {
