@@ -100,50 +100,25 @@ passwordLogin.addEventListener('blur', function() {
         passwordValidacao.style.fontSize = "12"
         passwordValidacao.style.fontWeight = "italic"
         passwordEValido = false;
+
     }
-    validaSenha();
+    if ((/(?=.*[A-Z])(?=.*[a-z])(?=.*[\d])(?=.*[!@#$%^&*()-+]).{8,}$/.test(passwordLogin.value))) {
+        passwordValidacao.innerText = " ";
+        passwordLogin.style.backgroundColor = "green";
+        passwordEValido = true;
+    } else {
+        /*Email esta com preenchimento incorreto conforme padrão Regex*/
+        passwordValidacao.innerText = "Senha obrigatória"
+        passwordLogin.style.backgroundColor = "green";
+        passwordValidacao.style.color = "#E05E"
+        passwordValidacao.style.fontSize = "12"
+        passwordValidacao.style.fontWeight = "italic"
+        passwordEValido = false;
+    }
     validaTelaDeLogin();
 });
 
-function validaSenha() {
-    let senhaValidacao = document.getElementById('passwordValidacao');
-    //var validandoSenha = false;
-    var letrasMaiusc = /[A-Z]/;
-    var letrasMinusc = /[a-z]/;
-    var numeros = /[0-9]/;
-    var caracteresEspeciais = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
-    if (senhaValidacao.length > 8) {
-        return passwordEValido;
-    }
-    if (senhaValidacao.length < 8) {
-        return passwordEValido;
-    }
-    var auxMaiuscula = 0;
-    var auxMinuscula = 0;
-    var auxNumero = 0;
-    var auxEspecial = 0;
-    for (var i = 0; i < senhaValidacao.length; i++) {
-        if (letrasMaiusc.test(senhaValidacao[i]))
-            auxMaiuscula++;
-        else if (letrasMinusc.test(senhaValidacao[i]))
-            auxMinuscula++;
-        else if (numeros.test(senhaValidacao[i]))
-            auxNumero++;
-        else if (caracteresEspeciais.test(senhaValidacao[i]))
-            auxEspecial++;
-    }
-    if (auxMaiuscula > 0) {
-        if (auxMinuscula > 0) {
-            if (auxNumero > 0) {
-                if (auxEspecial) {
-                    //validandoSenha = true;
-                    passwordEValido = true;
-                }
-            }
-        }
-    }
-    return passwordEValido;
-}
+
 //Ao clicar e interagir com o campo de "email" e senha  no formulário
 
 function validaTelaDeLogin() {
