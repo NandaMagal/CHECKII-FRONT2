@@ -1,90 +1,99 @@
 // buscar token jwt de usuario que tem cadastro //
 onload = function() {
-    let tokenUserjwt = this.localStorage.getItem("jwt");
+        let tokenUserjwt = localStorage.getItem("jwt");
 
-    //e o tokes wt for vazio ou diferente do token do usuario//
-    if (!tokenUserjwt) {
-        window.alert("Você não tem permissão para acessar esta página. Favor retornar para a página de login inicial.");
-    } else if (tokenUserjwt = "") {
-        window.alert("Você não tem permissão para acessar esta página. Favor retornar para a página de login inicial.");
-    } else {
-        console.log(tokenUserjwt);
-    }
-}
-
-//Carrega e altera dados do usuário logado - pega o endpoint//
-async function buscaUsuarioNaApi(tokenJwtArmazenado) {
-    let urlGetUsuario = "https://ctd-todo-api.herokuapp.com/v1/users/getMe";
-    let configuracaoRequisicao = {
-        headers: {
-            "Authorization": '${tokenJwtArmazenado}',
-        },
-    };
-    let resposta;
-    let respostaJson
-
-    try {
-        resposta = await fetch(urlGetUsuario, configuracaoRequisicao);
-        if (resposta.status == 200) {
-            respostaJson = await resposta.json();
-            alteraDadosUsuarioEmTela(respostaJson);
+        //e o tokes wt for vazio ou diferente do token do usuario//
+        if (!tokenUserjwt || tokenUserjwt == "") {
+            alert("Você não tem permissão para acessar esta página. Favor retornar para a página de login inicial.");
+            location.href = "index.html";
         } else {
-            throw resposta.status
+            console.log(tokenUserjwt);
+            buscaUsuarioNaApi(tokenUserjwt);
+            buscaAsTarefasDoUsuario(tokenUserjwt);
         }
-    } catch (error) {
-        let escolhaUsuario = confirm("Ocorreu algum erro ao buscar as informações deste usuário")
-        console.log(error);
-        if (escolhaUsuario) {
-            buscaUsuarioNaApi(cookieJwt);
-        }
-    }
-}
 
-function alteraDadosUsuarioEmTela(objetoUsuarioRecebido) {
-    let nomeUsuarioEmTarefas = document.getElementById('nomeUsuarioEmTarefas');
-    nomeUsuarioEmTarefas.innerText = '${objetoUsuarioRecebido.firstName} ${objetoUsuarioRecebido.lastName}'
-}
 
-//Busca todas as tarefas do usuário logado//
-function buscaAsTarefasDoUsuario(tokenJwtArmazenado) {
-    let urlGetTarefas = "https://ctd-todo-api.herokuapp.com/v1/tasks";
-    let configuracaoRequisicao = {
-        //como é um get, eu passo só o cabeçalho do token 
-        headers: {
-            'Authorization': `${tokenJwtArmazenado}`,
-        },
-    };
-    fetch(urlGetTarefas, configuracaoRequisicao).then(
-        resultado => {
-            if (resultado.status == 200) {
-                return resultado.json();
+        /*INCLUIR API DADOS DO USUARIO GET ME*/
+        //incluindo validações na APi 
+        //Code: 200 - Operação Sucesso;
+        //404- Usuário não existe;
+        //500 - Error del servidor //
+        // armazenar o token na variavel atraves do Local storage session storage//
+
+        //Carrega e altera dados do usuário logado - pega o endpoint//
+        function buscaUsuarioNaApi(token) {
+            let urlUsersBuscar = "https://ctd-todo-api.herokuapp.com/v1/users/getMe";
+            let configDaRequ = {
+                method: "GET",
+                headers: {
+                    "Authorization": token
+                }
             }
-            throw resultado.status;
-        }
-    ).then(
-        resultado => {
-            manipulandoTarefasUsuario(resultado);
-        }
-    ).catch(
-        erros => {
-            console.log(erros);
-        }
-    );
-}
+            fetch(urlUsersBuscar, configDaRequ)
+                .then(result => {
+                        if (result.status == 201 || result.status == 200) {
+                            return result.json();
+                        } else {
+                            throw result;
+                        }
+                    } //Se for diferente destas duas opções caimos no throw para a execução cair no Catch*/
 
-function manipulandoTarefasUsuario(listaDeTarefas) {
-    console.log(listaDeTarefas);
-}
+                )
+                .then(function(result) {
+                    alteraDadosUsuarioEmTela(result)
+                    console.log(result);
 
-//Cadastra nova tarefa para usuário
-let botaoTask = document.getElementById("Task");
-
-botaoTask.addEventListener('click', evento => {
-    let tarefaNova = document.getElementById("novaTarefa");
-
-    if (tarefaNova.value != "") {
-        const objetoTarefa = {
-            description: botaoTask.value,
+                }).catch(errou => {
+                    buscarErro(errou);
+                    console.log(errou);
+                });
         }
-    }
-})
+
+        function alteraDadosUsuarioEmTela(objetoUsuarioRecebido) {
+            let nomeUsuarioEmTarefas = document.getElementById('nomeUsuarioEmTarefas');
+            nomeUsuarioEmTarefas.innerText = `${ objetoUsuarioRecebido.firstName } ${ objetoUsuarioRecebido.lastName } `
+        }
+
+        //Busca todas as tarefas do usuário logado//
+        function buscaAsTarefasDoUsuario(token) {
+            let urlListaTasks = "https://ctd-todo-api.herokuapp.com/v1/tasks";
+            let configuracao = {
+                method: "GET",
+                headers: {
+                    "Authorization": token
+                }
+            }
+            fetch(urlListaTasks, configuracao)
+                .then(
+                    result => {
+                        if (result.status == 201 || result.status == 200) {
+                            window.alert("Obtendo Lista de Tarefas Sucesso");
+                            return result.json();
+                        } else {
+                            throw result;
+                        }
+                    }).then(function(resposta) {
+                    //  tarefaListaSucess(resposta.jwt);
+                    console.log(resposta)
+                }).catch(errou => {
+                    // tarefaListaErro(errou);
+                    console.log(errou);
+                })
+        }
+
+
+        function manipulandoTarefasUsuario(listaDeTarefas) {
+            console.log(listaDeTarefas);
+        }
+
+        //Cadastra nova tarefa para usuário
+        let botaoTask = document.getElementById("Task");
+
+        /*  botaoTask.addEventListener('click', evento => {
+        let tarefaNova = document.getElementById("novaTarefa");
+        if (tarefaNova.value != "") {
+            const objetoTarefa = {
+                description: botaoTask.value,
+            }
+        }
+        })/*
