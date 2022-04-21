@@ -244,7 +244,7 @@ function renderizarConcluidas(tarefa) {
                             <p class="nome">${tarefa.description}</p>
                             <div>
                                 <button><i id="${tarefa.id}" class="fas fa-undo-alt change"></i></button>
-                                <button><i id="${tarefa.id}" class="far fa-trash-alt"></i></button>
+                                <button><i id="${tarefa.id}" class="far fa-trash-alt" onclick="deleteTask(${tarefa.id},token)"></i></button>
                             </div>
                             </div>
                         `

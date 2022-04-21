@@ -109,34 +109,61 @@ botaoTask.addEventListener('click', evento => {
 });
 
 function criaTask(tarefa) {
-    const objetoTarefa = {
-        description: tarefa,
+    let objetoTarefa = {
+        description: tarefa
     }
     let novasTarefas = JSON.stringify(objetoTarefa);
-    if (objetoNewTask.completed) {
-        let urlNewTasks = "https://ctd-todo-api.herokuapp.com/v1/tasks";
-        let configuracao = {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-                "Authorization": token,
-            },
-            body: novasTarefas
-        }
-        fetch(urlNewTasks, configuracao)
-            .then(
-                result => {
-                    if (result.status == 201 || result.status == 200) {
-                        window.alert("Tarefa Criada com Sucesso");
-                        return resultado.json();
-                    } else {
-                        throw result;
-                    }
-                }).then(function(resposta) {
-                console.log(resposta); // primeira chamada da api-retorno de todo o objeto resultado json
-            }).catch(errou => {
-                tarefaErro(errou);
-                console.log(errou);
-            });
+    let urlNewTasks = "https://ctd-todo-api.herokuapp.com/v1/tasks";
+    let configuracao = {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": token
+        },
+        body: novasTarefas
     }
+    fetch(urlNewTasks, configuracao)
+        .then(
+            result => {
+                if (result.status == 201 || result.status == 200) {
+                    window.alert("Tarefa Criada com Sucesso");
+                    return result.json();
+                } else {
+                    throw result;
+                }
+            }).then(function(resposta) {
+            console.log(resposta); // primeira chamada da api-retorno de todo o objeto resultado json
+        }).catch(errou => {
+            tarefaErro(errou);
+            console.log(errou);
+        });
+}
+
+let deletar = document.getElementById("")
+
+function deleteTask(id, token) {
+
+    let urlDeleteTask = `https: //ctd-todo-api.herokuapp.com/v1/tasks/${id}`;
+    let configuracao = {
+        method: "DELETE",
+        headers: {
+            "Authorization": token
+        }
+    }
+    fetch(urlDeleteTask, configuracao)
+        .then(result => {
+            if (result.status == 201 || result.status == 200) {
+                alert("Modificando Tarefas com Sucesso");
+                return result.json();
+            } else {
+                throw result;
+            }
+
+        }).then(function(resposta) {
+            // tarefaDeletarSucess(resposta.jwt);
+            console.log(resposta.jwt);
+        }).catch(errou => {
+            // tarefaDeleteErro(errou);
+            console.log(errou);
+        });
 }
