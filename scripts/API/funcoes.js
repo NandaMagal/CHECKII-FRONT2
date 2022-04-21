@@ -1,5 +1,4 @@
 //funções para validaçãodas apis//
-
 // Api users -post//
 function userSucess(jwtRecebido) {
     console.log("Jwt que recebemos ao se cadastrar ");
@@ -218,15 +217,14 @@ function tarefaListaErro(resposta) {
     }
 }
 
-
-
 function renderizarPendentes(tarefa) {
+    let dataConvertida = dayjs(tarefa.createdAt).format('DD/MM/YYYY HH:mm')
     let taskPende = document.querySelector('.tarefas-pendentes');
     let pendentes = document.createElement('li');
     pendentes.innerHTML = ` <div class="not-done" id="${tarefa.id}" onclick="alteraStatustrue(${tarefa.id}, tokenUserjwt)"></div>
                             <div class="descricao">
                                 <p class="nome">${tarefa.description}</p>
-                                <p class="timestamp"><i class="far fa-calendar-alt"></i> ${tarefa.createdAt}</p>
+                                <p class="timestamp"><i class="far fa-calendar-alt"></i> ${dataConvertida}</p>
                             </div>
                         `
     pendentes.classList.add("tarefa");
